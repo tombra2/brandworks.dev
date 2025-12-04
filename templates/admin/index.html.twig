@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+    Admin Panel
+    {{ app.user.email }}
+    <a href="{{path('app_logout')}}"></a>
+{% endblock %}

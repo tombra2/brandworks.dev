@@ -1,0 +1,171 @@
+name: quality.yml
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  composer-validate:
+    name: Validate composer.json
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+
+
+      - name: Composer validate
+        run: composer validate
+
+  phpstan:
+    name: PHP Stan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          coverage: none
+
+
+      - name: Composer install
+        run: composer install
+
+      - name: PHPStan
+        run: vendor/bin/phpstan analyse
+
+
+  php-cs-fixer:
+    name: PHP-CS-Fixer
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          coverage: none
+
+
+      - name: Composer install
+        run: composer install
+
+      - name: PHP-CS-Fixer Check
+        run: vendor/bin/php-cs-fixer check
+
+  psalm:
+    name: Psalm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+
+
+      - name: Composer install
+        run: composer install
+
+      - name: Psalm Check
+        run: vendor/bin/psalm
+
+  twig:
+    name: Twig Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+
+
+      - name: Composer install
+        run: composer install
+
+      - name: Twig Lint Check
+        run: php bin/console lint:twig templates --show-deprecations
+
+  rector:
+    name: Rector
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+
+
+      - name: Composer install
+        run: composer install
+
+      - name: rector
+        run: vendor/bin/rector process -n
+
+  codesniffer:
+    name: cs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+
+
+      - name: Composer install
+        run: composer install
+
+      - name: cs
+        run: vendor/bin/phpcs
+
+
+  phpunit:
+    name: PHP-Unit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+
+
+      - name: Composer install
+        run: composer install
+
+      - name: PHP Unit
+        run: vendor/bin/phpunit

@@ -1,0 +1,12 @@
+meta:
+    author: "Thomas Brandner"
+    publisher: "Thomas Brandner – Full-Stack Developer"
+    description: "Portfolio of Austria-based Full-Stack Developer Thomas Brandner focused web-applications."
+    keywords: "Full Stack Developer Austria, Thomas Brandner"
+    title: "brandworks.dev | Thomas Brandner – Full-Stack Developer"
+    og:
+        title: "Thomas Brandner – Full-Stack Developer"
+        description: "Scalable web applications. Portfolio and projects from Austria."
+        image_alt: "brandworks.dev portfolio preview – Thomas Brandner, Full-Stack Developer"
+    home:
+        title: "Home"

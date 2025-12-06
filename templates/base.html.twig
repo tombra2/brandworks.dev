@@ -1,34 +1,45 @@
+<!DOCTYPE html>
 <html lang="{{ app.locale }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{% block title %}{% endblock %}</title>
+    <title>
+        {% block title %}
+            {% block title_suffix %}{% endblock %}
+            {{ 'meta.title'|trans({}, 'seo') }}
+        {% endblock %}
+    </title>
 
     <meta name="description" content="{% block meta_description %}
-        Discover exclusive luxury real estate in Dubai. High-end villas, penthouses, waterfront living and premium investment properties.
+        {{ 'meta.description'|trans({}, 'seo') }}
     {% endblock %}">
-    <meta name="keywords"
-          content="Dubai Real Estate, Luxury Properties Dubai, Penthouse Dubai, Villa Dubai, UAE property investment">
-    <meta property="og:title" content="{% block og_title %}Sikla Grand Real Estate – Luxury Dubai Homes{% endblock %}">
+    <meta name="keywords" content="{{ 'meta.keywords'|trans({}, 'seo') }}">
+    <meta property="og:title" content="{% block og_title %}
+        {{ 'meta.og.title'|trans({}, 'seo') }}
+    {% endblock %}">
     <meta property="og:type" content="{% block og_type %}website{% endblock %}">
     <meta property="og:url" content="{% block og_url %}{{ app.request.uri|default('') }}{% endblock %}">
-    <meta property="og:site_name" content="Sikla Grand Real Estate">
-    <meta property="og:image" content="{% block og_image %}{{ asset('images/social/sikla-preview.jpg') }}{% endblock %}">
-    <meta property="og:image:alt" content="{% block og_image_alt %}Luxury Real Estate Dubai – Sikla{% endblock %}">
+    <meta property="og:site_name" content="{{ 'meta.publisher'|trans({}, 'seo') }}">
+    <meta property="og:image"
+          content="{% block og_image %}{{ asset('images/social/portfolio-preview.jpg') }}{% endblock %}">
+    <meta property="og:image:alt" content="{% block og_image_alt %}
+        {{ 'meta.og.image_alt'|trans({}, 'seo') }}
+    {% endblock %}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="robots" content="{% block robots_directive %}index, follow{% endblock %}">
-    <meta name="author" content="{% block meta_author %}Sikla Grand Real Estate{% endblock %}">
-    <meta name="publisher" content="{% block meta_publisher %}Sikla Grand Real Estate {% endblock %}">
+    <meta name="author" content="{{ 'meta.author'|trans({}, 'seo') }}">
+    <meta name="publisher" content="{{ 'meta.publisher'|trans({}, 'seo') }}">
+    <meta name="theme-color" content="#000000">
+
     <link rel="canonical" href="{% block canonical_url %}{{ app.request.uri }}{% endblock %}">
     <link rel="icon" href="{{ asset('icons/favicon-16x16.png') }}" sizes="16x16">
     <link rel="icon" href="{{ asset('icons/favicon-32x32.png') }}" sizes="32x32">
-
     <link rel="icon" href="{{ asset('icons/logo.svg') }}" type="image/svg+xml">
     <link rel="apple-touch-icon" href="{{ asset('icons/apple-touch-icon.png') }}">
-
     <link rel="manifest" href="{{ asset('site.webmanifest') }}">
-    <meta name="theme-color" content="#000000">
+
+
     {% block stylesheets %}
     {% endblock %}
 
@@ -36,9 +47,9 @@
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
 </head>
+
 <body>
 {% block body %}
-
 {% endblock %}
 </body>
 </html>

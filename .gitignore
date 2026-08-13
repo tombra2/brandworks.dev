@@ -125,3 +125,8 @@ reports/**
 /src/Controller/MeinerController.php
 /templates/mein_test/
 /src/Controller/MeinTestController.php
+
+# Local IDE and generated Symfony reference files
+.idea/brandworks.dev.iml
+.idea/php.xml
+/config/reference.php
